@@ -19,3 +19,6 @@ fund-radar-*.json
 
 # your deployment config (artifact URL, task id); copy from site.example.json
 config/site.json
+
+# npm lock file: the only dev dependency is pinned exactly in package.json
+package-lock.json
