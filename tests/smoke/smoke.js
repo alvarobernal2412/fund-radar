@@ -166,10 +166,14 @@ function shiftDates(calls) {
   const ct = await pg.textContent("#app");
   check("call detail lists each eligibility condition", (await pg.$$(".cond")).length === 2 && (await pg.$$(".cond.unclear")).length === 1);
   check("an unclear condition says what to find out", ct.includes("To find out: Will you have lived in the host country"));
+  check("the call page always links to the call", (await pg.getAttribute("#call-open", "href")) === "https://example.org/msca" && (await pg.textContent("#call-open")).includes("Open the call page"));
   check("call detail shows the score parts with the weights", (await pg.$$(".sbar")).length === 3 && ct.includes("× 50%"));
   await pg.goto("file://" + page + "#call.example-travel-grant");
   await pg.waitForTimeout(300);
   check("a partial call says its unstated details are unknown", !!(await pg.$("#partial-note")));
+  await pg.goto("file://" + page + "#call.nested-shape");
+  await pg.waitForTimeout(300);
+  check("a call without a stored link offers a search for it", (await pg.getAttribute("#call-open", "href")).startsWith("https://www.google.com/search?q=Nested%20shape%20call"));
 
   await pg.goto("file://" + page + "#profile");
   await pg.waitForTimeout(400);

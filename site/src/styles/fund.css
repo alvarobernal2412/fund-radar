@@ -88,3 +88,6 @@ textarea.plain{font-family:var(--f-body);font-size:.9rem}
 .cmeta .pill{white-space:normal;max-width:100%}
 .cmeta .parts{margin-left:6px}
 @media (max-width:560px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+a.btn{display:inline-flex;align-items:center;text-decoration:none}
+a.btn.primary:hover{text-decoration:none;filter:brightness(1.08)}

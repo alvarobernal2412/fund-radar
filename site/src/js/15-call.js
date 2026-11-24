@@ -1,5 +1,12 @@
 /* ---------- call detail ---------- */
 const MARK_ICON={met:"✓",unclear:"?",not_met:"✕"};
+// Always offer a way to the call: its stored page, or a web search for its title and funder.
+function callOpen(c){
+  const u=c.links&&c.links.call;
+  if(/^https?:\/\//.test(u||""))return `<a class="btn primary" id="call-open" href="${esc(u)}" target="_blank" rel="noopener">Open the call page</a>`;
+  const q=encodeURIComponent([c.title,c.funder].filter(Boolean).join(" "));
+  return `<a class="btn" id="call-open" href="https://www.google.com/search?q=${q}" target="_blank" rel="noopener">Search for the call</a>`;
+}
 function renderCallDetail(id){
   if(!S.loaded.calls){app.innerHTML=loadingBlock();return}
   const c=S.calls.find(x=>x.id===id);
@@ -15,7 +22,7 @@ function renderCallDetail(id){
   <div class="dhead"><h1>${esc(c.title||"Untitled call")}</h1>
     <div class="meta">${esc(c.funder||"Unknown funder")}${c.programme?` · ${esc(c.programme)}`:""}${c.reference?` · <span class="mono">${esc(c.reference)}</span>`:""}</div>
     <div class="cmeta">${verdictBadge(v)}<span class="pill">${esc(typeLabel(c.type))}</span>${c.status?`<span class="pill${c.status==="new"?" acc":c.status==="changed"?" amb":""}">${esc((STATUSES.find(x=>x[0]===c.status)||[0,c.status])[1])}</span>`:""}${c.partial?`<span class="pill amb">Partial</span>`:""}${dueHtml(c)}</div>
-    <div class="btnrow"><button type="button" class="btn${m.interested?" primary":""}" data-mark="interested" data-id="${esc(c.id)}" aria-pressed="${!!m.interested}">${m.interested?"Interested ✓":"Mark interested"}</button><button type="button" class="btn${m.applying?" primary":""}" data-mark="applying" data-id="${esc(c.id)}" aria-pressed="${!!m.applying}">${m.applying?"Applying ✓":"Mark applying"}</button>${disc}${m.discarded?`<span class="pill crit">Discarded: ${esc((DISCARD.find(d=>d[0]===m.discarded)||[0,m.discarded])[1])}</span>`:""}</div>
+    <div class="btnrow">${callOpen(c)}<button type="button" class="btn${m.interested?" primary":""}" data-mark="interested" data-id="${esc(c.id)}" aria-pressed="${!!m.interested}">${m.interested?"Interested ✓":"Mark interested"}</button><button type="button" class="btn${m.applying?" primary":""}" data-mark="applying" data-id="${esc(c.id)}" aria-pressed="${!!m.applying}">${m.applying?"Applying ✓":"Mark applying"}</button>${disc}${m.discarded?`<span class="pill crit">Discarded: ${esc((DISCARD.find(d=>d[0]===m.discarded)||[0,m.discarded])[1])}</span>`:""}</div>
   </div>
   ${c.partial?`<div class="notice gap" id="partial-note">This call was read from a listing or summary page only. Details it does not state are unknown, not absent: open the call page before relying on them.</div>`:""}
   <div class="dgrid">
