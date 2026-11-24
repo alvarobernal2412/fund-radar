@@ -1,0 +1,63 @@
+{
+  "_comment": "Country pack for Switzerland: national funders and the main universities. A university's 'fundingUrl' is its research-funding or grants-office page. When it is null, the first scan finds that page, stores it in meta/config.institutions[].fundingUrl, and reads it from then on. Add a URL here only after opening the page yourself.",
+  "id": "ch",
+  "country": "CH",
+  "label": "Switzerland",
+  "kind": "country",
+  "sources": [
+    {
+      "id": "ch-snsf",
+      "label": "Swiss National Science Foundation (SNSF)",
+      "url": "https://snf.ch/en/9o5ezhuSlHENVQxr/page/overview-of-funding-schemes",
+      "access": "browser",
+      "how": "Read the funding schemes overview and each scheme's page for open calls, deadlines and eligibility. The SNSF is reforming its career funding (Ambizione and Postdoc.Mobility are being replaced by a new postdoctoral scheme), so never assume a scheme still exists: confirm it on its page.",
+      "types": ["project", "fellowship", "mobility", "networking", "infrastructure"],
+      "default": true
+    },
+    {
+      "id": "ch-innosuisse",
+      "label": "Innosuisse",
+      "url": "https://www.innosuisse.admin.ch/en/support-offers",
+      "access": "browser",
+      "how": "Innovation projects (with or without an implementation partner), BRIDGE (with the SNSF) and international calls. Most offers have rolling submission tied to Innovation Council meetings: record those as rolling, not as a fixed deadline.",
+      "types": ["project"],
+      "default": true
+    },
+    {
+      "id": "ch-euresearch",
+      "label": "Euresearch (Swiss guide to EU funding)",
+      "url": "https://www.euresearch.ch/en/",
+      "access": "browser",
+      "how": "Open and upcoming Horizon Europe calls as relevant to Swiss participants, including notes on Swiss participation rules. Use it to add the Swiss conditions to EU calls found in the European pack, not as a second copy of those calls.",
+      "types": ["project", "fellowship", "mobility"],
+      "default": true
+    },
+    {
+      "id": "ch-swissuniversities",
+      "label": "swissuniversities",
+      "url": "https://www.swissuniversities.ch/en/",
+      "access": "browser",
+      "how": "National programmes run by the Swiss universities' umbrella organisation (for example doctoral programmes and open science calls).",
+      "types": ["project", "networking"],
+      "default": false
+    }
+  ],
+  "institutions": [
+    {"id": "ethz", "name": "ETH Zurich", "kind": "federal institute of technology", "site": "https://ethz.ch", "fundingUrl": null},
+    {"id": "epfl", "name": "EPFL", "kind": "federal institute of technology", "site": "https://www.epfl.ch", "fundingUrl": null},
+    {"id": "uzh", "name": "University of Zurich", "kind": "university", "site": "https://www.uzh.ch", "fundingUrl": null},
+    {"id": "unibe", "name": "University of Bern", "kind": "university", "site": "https://www.unibe.ch", "fundingUrl": "https://www.unibe.ch/research/funding_and_prizes/funding_programs/eu/index_eng.html"},
+    {"id": "unibas", "name": "University of Basel", "kind": "university", "site": "https://www.unibas.ch", "fundingUrl": null},
+    {"id": "unige", "name": "University of Geneva", "kind": "university", "site": "https://www.unige.ch", "fundingUrl": "https://www.unige.ch/recherche/en/grants-office/"},
+    {"id": "unil", "name": "University of Lausanne", "kind": "university", "site": "https://www.unil.ch", "fundingUrl": null},
+    {"id": "unisg", "name": "University of St.Gallen (HSG)", "kind": "university", "site": "https://www.unisg.ch", "fundingUrl": "https://funding.unisg.ch/en/programmes"},
+    {"id": "unifr", "name": "University of Fribourg", "kind": "university", "site": "https://www.unifr.ch", "fundingUrl": "https://www.unifr.ch/research/en/funding/"},
+    {"id": "unine", "name": "University of Neuchâtel", "kind": "university", "site": "https://www.unine.ch", "fundingUrl": null},
+    {"id": "unilu", "name": "University of Lucerne", "kind": "university", "site": "https://www.unilu.ch", "fundingUrl": null},
+    {"id": "usi", "name": "Università della Svizzera italiana (USI)", "kind": "university", "site": "https://www.usi.ch", "fundingUrl": null},
+    {"id": "zhaw", "name": "ZHAW Zurich University of Applied Sciences", "kind": "university of applied sciences", "site": "https://www.zhaw.ch", "fundingUrl": null},
+    {"id": "fhnw", "name": "FHNW University of Applied Sciences and Arts Northwestern Switzerland", "kind": "university of applied sciences", "site": "https://www.fhnw.ch", "fundingUrl": null},
+    {"id": "bfh", "name": "Bern University of Applied Sciences (BFH)", "kind": "university of applied sciences", "site": "https://www.bfh.ch", "fundingUrl": null},
+    {"id": "hes-so", "name": "HES-SO University of Applied Sciences and Arts Western Switzerland", "kind": "university of applied sciences", "site": "https://www.hes-so.ch", "fundingUrl": null}
+  ]
+}

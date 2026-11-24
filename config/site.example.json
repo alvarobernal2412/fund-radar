@@ -1,0 +1,13 @@
+{
+  "_comment": "Copy to config/site.json for your deployment. That file is ignored by git: it holds your artifact link and task id, and nothing in it is ever committed. Your scope, profile and calls live in the artifact's own database, not here.",
+  "title": "Fund Radar",
+  "outFile": "fund-radar.html",
+  "artifactUrl": "https://claude.ai/artifact/<id>",
+  "lastPublishedCommit": "",
+  "triggerId": "trig_...",
+  "siteName": "Fund Radar",
+  "scheduleText": "Wednesdays at 08:49",
+  "weekday": 2,
+  "time": "08:49",
+  "timezone": "Europe/Zurich"
+}

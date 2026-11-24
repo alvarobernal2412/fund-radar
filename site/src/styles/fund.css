@@ -1,0 +1,90 @@
+/* Fund Radar additions: summary strip, call rows, verdicts, score parts, marks, scope editor. */
+:root{--ok:var(--accent);--ok-soft:var(--accent-soft)}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.stat{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:2px;color:var(--ink)}
+a.stat:hover{border-color:var(--accent);text-decoration:none}
+.stat b{font-family:var(--f-mono);font-size:1.5rem;font-weight:500;line-height:1.2}
+.stat span{font-size:.82rem;color:var(--muted)}
+.stat.warn b{color:var(--amber)}
+
+.clist{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.crow{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:14px;padding:14px 16px;align-items:start}
+.crow+.crow{border-top:1px solid var(--line)}
+.crow.discarded{opacity:.55}
+.crow.closed .ptitle{color:var(--muted)}
+.cbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cfund{font-size:.86rem;color:var(--muted)}
+.cmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8rem}
+.cwhy{margin:0;font-size:.84rem;color:var(--muted);max-width:80ch}
+.cact{display:flex;flex-direction:column;gap:6px;align-items:stretch;min-width:110px}
+
+.vd{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:999px;font-size:.75rem;font-weight:500;white-space:nowrap}
+.vd::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.vd.eligible{background:var(--ok-soft);color:var(--ok)}
+.vd.check{background:var(--amber-soft);color:var(--amber)}
+.vd.not_eligible{background:var(--crit-soft);color:var(--crit)}
+
+.parts{display:inline-flex;gap:10px;font-size:.74rem;color:var(--muted);align-items:center}
+.part{display:inline-flex;align-items:center;gap:4px;font-family:var(--f-mono)}
+.part i{display:inline-block;width:34px;height:5px;border-radius:3px;background:var(--sunk);overflow:hidden;position:relative}
+.part i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--accent)}
+
+.due.prep{color:var(--crit);font-weight:500}
+.disc{position:relative}
+.disc summary{list-style:none;cursor:pointer}
+.disc summary::-webkit-details-marker{display:none}
+.discbox{position:absolute;right:0;z-index:20;margin-top:4px;min-width:190px;padding:6px;border:1px solid var(--line);border-radius:5px;background:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:2px}
+.discbox button{font:inherit;font-size:.84rem;text-align:left;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:var(--ink);cursor:pointer}
+.discbox button:hover{background:var(--sunk)}
+
+.conds{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.cond{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:.9rem}
+.cond .ic{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;font-family:var(--f-mono)}
+.cond.met .ic{background:var(--ok-soft);color:var(--ok)}
+.cond.unclear .ic{background:var(--amber-soft);color:var(--amber)}
+.cond.not_met .ic{background:var(--crit-soft);color:var(--crit)}
+.cond p{margin:2px 0 0;font-size:.82rem;color:var(--muted)}
+.cond .q{color:var(--amber)}
+
+.scorebars{display:flex;flex-direction:column;gap:8px}
+.sbar{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;font-size:.86rem}
+.sbar .b{height:7px;border-radius:4px;background:var(--sunk);overflow:hidden}
+.sbar .b i{display:block;height:100%;background:var(--accent)}
+.sbar .n{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);text-align:right}
+
+.pendlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pendlist li{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);font-size:.88rem}
+.pendlist .val{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.notice.pending{border-left:3px solid var(--accent);background:var(--accent-soft)}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:start}
+.pgrid .panel h3{font-size:1.05rem}
+.fromtag{font-size:.72rem;color:var(--muted);font-family:var(--f-mono)}
+.ra{display:flex;flex-direction:column;gap:2px;font-size:.88rem}
+.ra+.ra{margin-top:8px}
+.pubrow.hidden-pub td{opacity:.5}
+.pubrow.hidden-pub td:last-child{opacity:1}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+input[type=text],input[type=url],input[type=date]{font:inherit;font-size:.9rem;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+textarea.plain{font-family:var(--f-body);font-size:.9rem}
+
+.insttbl td{vertical-align:middle}
+.insttbl select{width:auto}
+.chkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.wrow{display:grid;grid-template-columns:120px 1fr 52px;gap:10px;align-items:center;font-size:.88rem}
+.wrow output{font-family:var(--f-mono);font-size:.82rem;text-align:right}
+.preprow{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.msgbox{font-family:var(--f-mono);font-size:.8rem;padding:10px;border:1px dashed var(--line);border-radius:5px;background:var(--bg);white-space:pre-wrap;word-break:break-word}
+
+@media (max-width:560px){
+  .crow{grid-template-columns:44px minmax(0,1fr)} .cact{grid-column:2;flex-direction:row;flex-wrap:wrap}
+  .sbar{grid-template-columns:90px 1fr 56px}
+}
+
+/* checkboxes inside form fields read as text, not as field labels */
+.fld label.chk,.fld .chk span{text-transform:none;letter-spacing:0;font-weight:400;color:var(--ink);font-size:.88rem}
+.fld .chk .muted{color:var(--muted)}
+.cmeta .pill{white-space:normal;max-width:100%}
+.cmeta .parts{margin-left:6px}
+@media (max-width:560px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}

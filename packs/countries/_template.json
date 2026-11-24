@@ -1,0 +1,21 @@
+{
+  "_comment": "Copy this file to packs/countries/<two-letter code, lower case>.json to add a country. List the national research funders under sources and the main universities under institutions. Leave fundingUrl null when you have not opened the grants-office page yourself: the first scan finds it. See docs/new-pack.md.",
+  "id": "xx",
+  "country": "XX",
+  "label": "Country name in English",
+  "kind": "country",
+  "sources": [
+    {
+      "id": "xx-funder",
+      "label": "National research funder",
+      "url": "https://example.org/funding",
+      "access": "browser",
+      "how": "What the scan should read on this site and what to watch out for.",
+      "types": ["project", "fellowship"],
+      "default": true
+    }
+  ],
+  "institutions": [
+    {"id": "xx-uni", "name": "Example University", "kind": "university", "site": "https://example.org", "fundingUrl": null}
+  ]
+}

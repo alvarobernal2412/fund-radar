@@ -1,0 +1,616 @@
+[
+ {
+  "id": "example-postdoc-fellowship-2027",
+  "title": "Postdoctoral fellowship 2027",
+  "funder": "Example National Science Foundation",
+  "type": "fellowship",
+  "deadlines": [
+   {
+    "stage": "full proposal",
+    "date": "2027-02-02",
+    "time": "17:00",
+    "tz": "CET"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "PhD obtained by the start of the fellowship",
+    "kind": "phd-window",
+    "mark": "met",
+    "reason": "PhD expected in 2027, before the start date."
+   },
+   {
+    "text": "Host institution in the country",
+    "kind": "host",
+    "mark": "met",
+    "reason": "ETH Zurich is listed as a target institution."
+   }
+  ],
+  "verdict": "eligible",
+  "scores": {
+   "topical": 82,
+   "skills": 64,
+   "practical": 70,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example National Science Foundation"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-24",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "CH"
+  ],
+  "amount": {
+   "min": null,
+   "max": 120000,
+   "currency": "CHF",
+   "text": "Salary and research costs up to CHF 120,000 per year"
+  },
+  "durationMonths": {
+   "min": 24,
+   "max": 24
+  },
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "Two-year fellowship for early postdocs to pursue their own project at a host institution.",
+  "requiredDocuments": [
+   "Research plan (10 pages)",
+   "CV",
+   "Two reference letters"
+  ],
+  "links": {
+   "call": "https://example.org/fellowship",
+   "guidelines": "https://example.org/fellowship.pdf"
+  },
+  "why": "Open theme and a strong match on research areas; skills fit is held back by the publication count.",
+  "gaps": [
+   "Only one first-author journal article"
+  ],
+  "status": "new"
+ },
+ {
+  "id": "horizon-msca-2027-pf-01-01",
+  "title": "MSCA Postdoctoral Fellowships 2027",
+  "funder": "European Commission",
+  "type": "fellowship",
+  "deadlines": [
+   {
+    "stage": "full proposal",
+    "date": "2027-09-10",
+    "time": "17:00",
+    "tz": "CET"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "Doctoral degree by the deadline",
+    "kind": "phd-window",
+    "mark": "met",
+    "reason": "The profile shows it."
+   },
+   {
+    "text": "Mobility rule: not resident in the host country for more than 12 months in the last 36",
+    "kind": "residence",
+    "mark": "unclear",
+    "reason": "The profile does not say.",
+    "question": "Will you have lived in the host country for more than 12 months by the deadline?"
+   }
+  ],
+  "verdict": "check",
+  "scores": {
+   "topical": 70,
+   "skills": 58,
+   "practical": 55,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "EU Funding & Tenders portal",
+    "EURAXESS funding database"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-17",
+   "lastConfirmed": "2026-11-24"
+  },
+  "reference": "HORIZON-MSCA-2027-PF-01-01",
+  "countries": [
+   "EU"
+  ],
+  "amount": {
+   "min": null,
+   "max": null,
+   "currency": "EUR",
+   "text": "Unit contributions per researcher-month"
+  },
+  "durationMonths": {
+   "min": 12,
+   "max": 24
+  },
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "European fellowships for postdocs who move to a host in another country.",
+  "requiredDocuments": [
+   "Part B (10 pages)",
+   "CV"
+  ],
+  "links": {
+   "call": "https://example.org/msca",
+   "guidelines": null
+  },
+  "why": "Open theme fits well; the mobility rule needs checking.",
+  "gaps": [
+   "No supervisor at a host yet"
+  ],
+  "status": "open"
+ },
+ {
+  "id": "example-uni-networking-grant-2027",
+  "title": "Doctoral networking grant",
+  "funder": "Example University Graduate School",
+  "type": "networking",
+  "deadlines": [
+   {
+    "stage": "application",
+    "date": "2027-01-15"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "Enrolled doctoral student at the university",
+    "kind": "employment",
+    "mark": "met",
+    "reason": "The profile shows it."
+   },
+   {
+    "text": "Event within 12 months",
+    "kind": "other",
+    "mark": "met",
+    "reason": "The profile shows it."
+   }
+  ],
+  "verdict": "eligible",
+  "scores": {
+   "topical": 55,
+   "skills": 80,
+   "practical": 90,
+   "adjust": 4
+  },
+  "provenance": {
+   "foundIn": [
+    "Example University Graduate School"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-24",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "CH"
+  ],
+  "institution": "unisg",
+  "amount": {
+   "min": null,
+   "max": 5000,
+   "currency": "CHF",
+   "text": "Up to CHF 5,000"
+  },
+  "durationMonths": null,
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "Funds for doctoral students to organise networking events or workshops.",
+  "requiredDocuments": [
+   "One-page plan",
+   "Budget"
+  ],
+  "links": {
+   "call": "https://example.org/network",
+   "guidelines": null
+  },
+  "why": "Small, quick grant you clearly qualify for.",
+  "gaps": [],
+  "status": "new"
+ },
+ {
+  "id": "example-innovation-project",
+  "title": "Innovation project with an implementation partner",
+  "funder": "Example Innovation Agency",
+  "type": "project",
+  "deadlines": [],
+  "eligibility": [
+   {
+    "text": "Research partner at a public institution",
+    "kind": "host",
+    "mark": "met",
+    "reason": "The profile shows it."
+   },
+   {
+    "text": "Industry implementation partner committed",
+    "kind": "other",
+    "mark": "unclear",
+    "reason": "The profile does not say.",
+    "question": "Do you have a company partner?"
+   }
+  ],
+  "verdict": "check",
+  "scores": {
+   "topical": 48,
+   "skills": 40,
+   "practical": 60,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example Innovation Agency"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-17",
+   "lastConfirmed": "2026-11-24"
+  },
+  "rolling": true,
+  "countries": [
+   "CH"
+  ],
+  "amount": {
+   "min": null,
+   "max": null,
+   "currency": "CHF",
+   "text": "Research partner costs; partner contributes at least 40%"
+  },
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "Applied projects carried out with a company; applications are assessed at regular committee meetings.",
+  "requiredDocuments": [
+   "Project plan",
+   "Partner letter"
+  ],
+  "links": {
+   "call": "https://example.org/innovation",
+   "guidelines": null
+  },
+  "why": "Possible if you find an industry partner for a process-mining tool.",
+  "gaps": [
+   "No industry partner"
+  ],
+  "status": "open"
+ },
+ {
+  "id": "example-starting-grant-2027",
+  "title": "Starting grant 2027",
+  "funder": "Example National Science Foundation",
+  "type": "project",
+  "deadlines": [
+   {
+    "stage": "full proposal",
+    "date": "2027-05-04"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "PhD obtained 2 to 8 years before the deadline",
+    "kind": "phd-window",
+    "mark": "not_met",
+    "reason": "PhD expected in 2027: too early."
+   },
+   {
+    "text": "Research in the country",
+    "kind": "host",
+    "mark": "met",
+    "reason": "The profile shows it."
+   }
+  ],
+  "verdict": "not_eligible",
+  "scores": {
+   "topical": 75,
+   "skills": 30,
+   "practical": 65,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example National Science Foundation"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-17",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "CH"
+  ],
+  "amount": {
+   "min": null,
+   "max": 1500000,
+   "currency": "CHF",
+   "text": "Up to CHF 1.5 million"
+  },
+  "durationMonths": {
+   "min": 60,
+   "max": 60
+  },
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "Five-year grants for researchers ready to lead an independent team.",
+  "requiredDocuments": [
+   "Research plan",
+   "CV",
+   "Track record"
+  ],
+  "links": {
+   "call": "https://example.org/starting",
+   "guidelines": null
+  },
+  "why": "Strong topical fit, but the career window rules you out for now.",
+  "gaps": [
+   "PhD not yet obtained",
+   "No team leadership"
+  ],
+  "status": "open"
+ },
+ {
+  "id": "example-ai-foundation-call",
+  "title": "Call on trustworthy AI in organisations",
+  "funder": "Example Foundation for Technology",
+  "type": "project",
+  "deadlines": [
+   {
+    "stage": "pre-proposal",
+    "date": "2027-03-01"
+   },
+   {
+    "stage": "full proposal",
+    "date": "2027-06-01"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "Applicant holds a PhD or is a senior researcher",
+    "kind": "career",
+    "mark": "met",
+    "reason": "The profile shows it."
+   },
+   {
+    "text": "Applicant employed at a university of applied sciences or university",
+    "kind": "employment",
+    "mark": "unclear",
+    "reason": "The profile does not say.",
+    "question": "Check with the funder."
+   }
+  ],
+  "verdict": "check",
+  "scores": {
+   "topical": 88,
+   "skills": 55,
+   "practical": 60,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example Foundation for Technology"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-24",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "CH"
+  ],
+  "amount": {
+   "min": 100000,
+   "max": 400000,
+   "currency": "CHF",
+   "text": "CHF 100,000 to 400,000"
+  },
+  "durationMonths": {
+   "min": 24,
+   "max": 36
+  },
+  "theme": {
+   "open": false,
+   "text": "Trustworthy and transparent AI in organisational processes"
+  },
+  "summary": "Thematic call on transparent AI in organisations, including auditing and provenance of automated decisions.",
+  "requiredDocuments": [
+   "Two-page pre-proposal"
+  ],
+  "links": {
+   "call": "https://example.org/ai",
+   "guidelines": null
+  },
+  "why": "The theme matches provenance as a guardrail for agentic process mining closely.",
+  "gaps": [
+   "No prior grant as main applicant"
+  ],
+  "status": "new"
+ },
+ {
+  "id": "example-travel-grant",
+  "title": "Conference travel grant",
+  "funder": "Example Research Society",
+  "type": "mobility",
+  "deadlines": [
+   {
+    "stage": "application",
+    "date": "2026-12-12"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "Member of the society",
+    "kind": "other",
+    "mark": "met",
+    "reason": "The profile shows it."
+   }
+  ],
+  "verdict": "eligible",
+  "scores": {
+   "topical": 50,
+   "skills": 70,
+   "practical": 80,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example Research Society"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-17",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "EU"
+  ],
+  "amount": {
+   "min": null,
+   "max": 1500,
+   "currency": "EUR",
+   "text": "Up to EUR 1,500"
+  },
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "Travel support for early-career researchers presenting at the society's conferences.",
+  "requiredDocuments": [
+   "Acceptance letter"
+  ],
+  "links": {
+   "call": "https://example.org/travel",
+   "guidelines": null
+  },
+  "why": "Easy to get, small amount.",
+  "gaps": [],
+  "status": "open",
+  "partial": true
+ },
+ {
+  "id": "example-dissertation-prize",
+  "title": "Best dissertation prize",
+  "funder": "Example Process Society",
+  "type": "prize",
+  "deadlines": [
+   {
+    "stage": "nomination",
+    "date": "2027-04-30"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "Dissertation defended in 2026 or 2027",
+    "kind": "phd-window",
+    "mark": "unclear",
+    "reason": "The profile does not say.",
+    "question": "Will your defence fall in the window?"
+   }
+  ],
+  "verdict": "check",
+  "scores": {
+   "topical": 90,
+   "skills": 60,
+   "practical": 70,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example Process Society"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-24",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "EU"
+  ],
+  "amount": {
+   "min": null,
+   "max": 1000,
+   "currency": "EUR",
+   "text": "EUR 1,000 and a talk"
+  },
+  "theme": {
+   "open": false,
+   "text": "Process mining and business process management"
+  },
+  "summary": "Annual prize for an outstanding dissertation in the field.",
+  "requiredDocuments": [
+   "Dissertation",
+   "Supervisor letter"
+  ],
+  "links": {
+   "call": "https://example.org/prize",
+   "guidelines": null
+  },
+  "why": "Exact field match; depends on your defence date.",
+  "gaps": [],
+  "status": "new"
+ },
+ {
+  "id": "example-closed-call-2026",
+  "title": "Seed money 2026",
+  "funder": "Example University",
+  "type": "project",
+  "deadlines": [
+   {
+    "stage": "application",
+    "date": "2026-10-01"
+   }
+  ],
+  "eligibility": [
+   {
+    "text": "Employed at the university",
+    "kind": "employment",
+    "mark": "met",
+    "reason": "The profile shows it."
+   }
+  ],
+  "verdict": "eligible",
+  "scores": {
+   "topical": 60,
+   "skills": 70,
+   "practical": 80,
+   "adjust": 0
+  },
+  "provenance": {
+   "foundIn": [
+    "Example University"
+   ],
+   "fromFunder": true,
+   "firstSeen": "2026-11-17",
+   "lastConfirmed": "2026-11-24"
+  },
+  "countries": [
+   "CH"
+  ],
+  "institution": "unisg",
+  "amount": {
+   "min": null,
+   "max": 20000,
+   "currency": "CHF",
+   "text": "Up to CHF 20,000"
+  },
+  "theme": {
+   "open": true,
+   "text": null
+  },
+  "summary": "Seed funding for new research ideas.",
+  "requiredDocuments": [],
+  "links": {
+   "call": "https://example.org/seed",
+   "guidelines": null
+  },
+  "why": "Closed this year.",
+  "gaps": [],
+  "status": "closed"
+ }
+]

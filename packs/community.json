@@ -1,0 +1,28 @@
+{
+  "_comment": "Announcement channels of research communities. The user picks the ones that match their field during setup or on the Settings page. Mostly useful for positions (phase 3) and for prizes and community grants.",
+  "id": "community",
+  "label": "Research communities",
+  "kind": "community",
+  "sources": [
+    {
+      "id": "dbworld",
+      "label": "DBWorld mailing list",
+      "fields": ["databases", "information systems", "process mining", "data science"],
+      "url": "https://research.cs.wisc.edu/dbworld/browse.html",
+      "access": "browser",
+      "how": "Read recent messages and keep only funding calls, grants and prizes. If the newest message is more than a month old, report the source as stale instead of reading old messages.",
+      "types": ["fellowship", "prize", "networking"],
+      "default": false
+    },
+    {
+      "id": "ieee-tfpm",
+      "label": "IEEE Task Force on Process Mining",
+      "fields": ["process mining", "business process management"],
+      "url": "https://www.tf-pm.org/",
+      "access": "browser",
+      "how": "News and announcements: awards, community grants and events with travel support.",
+      "types": ["prize", "networking"],
+      "default": false
+    }
+  ]
+}

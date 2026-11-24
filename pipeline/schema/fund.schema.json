@@ -1,0 +1,956 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/alvarobernal2412/fund-radar/pipeline/schema/fund.schema.json",
+  "title": "Fund Radar documents",
+  "description": "Every document stored in a Fund Radar artifact database, and the export file. Shared documents sit at the database root; data/users/<id>/... is private to one viewer. Nothing here is ever committed to the repository.",
+  "$defs": {
+    "isoDate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}"
+    },
+    "callType": {
+      "enum": [
+        "project",
+        "fellowship",
+        "mobility",
+        "networking",
+        "infrastructure",
+        "prize",
+        "other"
+      ]
+    },
+    "mark": {
+      "enum": [
+        "met",
+        "not_met",
+        "unclear"
+      ]
+    },
+    "verdict": {
+      "enum": [
+        "eligible",
+        "check",
+        "not_eligible"
+      ]
+    },
+    "from": {
+      "description": "Where a profile entry came from, and how recent that source is.",
+      "type": "object",
+      "properties": {
+        "source": {
+          "enum": [
+            "portfolio",
+            "linkedin",
+            "cv",
+            "orcid",
+            "scholar",
+            "questionnaire",
+            "manual"
+          ]
+        },
+        "asOf": {
+          "$ref": "#/$defs/isoDate"
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": [
+        "text",
+        "mark"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The condition in the funder's terms."
+        },
+        "kind": {
+          "enum": [
+            "career",
+            "phd-window",
+            "nationality",
+            "residence",
+            "host",
+            "degree",
+            "language",
+            "employment",
+            "other"
+          ]
+        },
+        "mark": {
+          "$ref": "#/$defs/mark"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why it is met, not met or unclear, citing the profile."
+        },
+        "question": {
+          "type": "string",
+          "description": "For unclear: what the user must find out."
+        }
+      }
+    },
+    "call": {
+      "type": "object",
+      "required": [
+        "title",
+        "funder",
+        "type",
+        "deadlines",
+        "eligibility",
+        "verdict",
+        "provenance"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "funder": {
+          "type": "string"
+        },
+        "programme": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The funder's own identifier (an EU topic id, for example)."
+        },
+        "type": {
+          "$ref": "#/$defs/callType"
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ISO codes of the funder's countries; EU for European programmes."
+        },
+        "hostCountries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Where the work may take place; empty means anywhere."
+        },
+        "institution": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Pack institution id for internal funds."
+        },
+        "deadlines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "date"
+            ],
+            "properties": {
+              "stage": {
+                "type": "string"
+              },
+              "date": {
+                "$ref": "#/$defs/isoDate"
+              },
+              "time": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "tz": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "rolling": {
+          "type": "boolean",
+          "description": "Submission at any time or tied to recurring committee dates."
+        },
+        "amount": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "min": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "max": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "currency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "durationMonths": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "min": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "max": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "theme": {
+          "type": "object",
+          "properties": {
+            "open": {
+              "type": "boolean"
+            },
+            "text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "eligibility": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/condition"
+          }
+        },
+        "verdict": {
+          "$ref": "#/$defs/verdict"
+        },
+        "requiredDocuments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "call": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "guidelines": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "scores": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "topical": {
+              "type": "number"
+            },
+            "skills": {
+              "type": "number"
+            },
+            "practical": {
+              "type": "number"
+            },
+            "adjust": {
+              "type": "number",
+              "description": "Feedback adjustment, -10..10."
+            }
+          }
+        },
+        "why": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "One sentence: why the call ranks where it does."
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "What the profile lacks for this call."
+        },
+        "partial": {
+          "type": "boolean",
+          "description": "Read only from a summary or listing page: unstated fields are unknown, not absent."
+        },
+        "status": {
+          "enum": [
+            "new",
+            "open",
+            "changed",
+            "closed"
+          ]
+        },
+        "scoredProfileRevision": {
+          "type": "integer"
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "foundIn": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fromFunder": {
+              "type": "boolean"
+            },
+            "firstSeen": {
+              "$ref": "#/$defs/isoDate"
+            },
+            "lastConfirmed": {
+              "$ref": "#/$defs/isoDate"
+            }
+          }
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "careerStage": {
+          "enum": [
+            "phd",
+            "postdoc",
+            "senior",
+            "professor",
+            "other"
+          ]
+        },
+        "phdDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "YYYY, YYYY-MM or YYYY-MM-DD; expected date while still a PhD student."
+        },
+        "phdExpected": {
+          "type": "boolean"
+        },
+        "careerBreaksMonths": {
+          "type": "integer"
+        },
+        "employer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "residence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nationalities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "researchAreas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number"
+              },
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "from": {
+                "$ref": "#/$defs/from"
+              }
+            }
+          }
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skills": {
+          "type": "object",
+          "properties": {
+            "hard": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "soft": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "language": {
+                "type": "string"
+              },
+              "level": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "teaching": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "course": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "years": {
+                "type": "string"
+              },
+              "from": {
+                "$ref": "#/$defs/from"
+              }
+            }
+          }
+        },
+        "funding": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "funder": {
+                "type": "string"
+              },
+              "year": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              },
+              "role": {
+                "type": "string"
+              },
+              "from": {
+                "$ref": "#/$defs/from"
+              }
+            }
+          }
+        },
+        "publications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "venue": {
+                "type": "string"
+              },
+              "year": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "type": {
+                "type": "string"
+              },
+              "position": {
+                "type": "string",
+                "description": "first, last, middle or sole author"
+              },
+              "doi": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "hidden": {
+                "type": "boolean",
+                "description": "Hidden by the user: ignored in matching."
+              },
+              "from": {
+                "$ref": "#/$defs/from"
+              }
+            }
+          }
+        },
+        "answers": {
+          "type": "object",
+          "description": "Questionnaire answers.",
+          "properties": {
+            "ambitions": {
+              "type": "string"
+            },
+            "relocation": {
+              "enum": [
+                "yes",
+                "maybe",
+                "no"
+              ]
+            },
+            "preferredCountries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "teachingLanguages": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "grantSize": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "string"
+            },
+            "avoid": {
+              "type": "string"
+            }
+          }
+        },
+        "inputs": {
+          "type": "object",
+          "description": "Where the profile is read from.",
+          "properties": {
+            "portfolio": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "orcid": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scholar": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "linkedin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "enum": [
+                      "cv",
+                      "linkedin",
+                      "other"
+                    ]
+                  },
+                  "addedAt": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "revision": {
+          "type": "integer"
+        },
+        "confirmedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updatedBy": {
+          "type": "string"
+        },
+        "pending": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Changes proposed by a scan (from the portfolio or ORCID), waiting for the user.",
+          "properties": {
+            "proposedAt": {
+              "type": "string"
+            },
+            "from": {
+              "type": "string"
+            },
+            "changes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "old": {},
+                  "new": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "meta/config": {
+      "type": "object",
+      "properties": {
+        "siteName": {
+          "type": "string"
+        },
+        "scheduleText": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "triggerId": {
+          "type": "string"
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ISO codes, upper case."
+        },
+        "includeEU": {
+          "type": "boolean"
+        },
+        "opportunityTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/callType"
+          }
+        },
+        "careerStage": {
+          "type": "string"
+        },
+        "institutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "role"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "role": {
+                "enum": [
+                  "home",
+                  "target"
+                ]
+              },
+              "fundingUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "communities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "description": "Per-source on/off overrides of the packs' defaults."
+        },
+        "prepWeeks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "minAffinity": {
+          "type": "number"
+        }
+      }
+    },
+    "meta/weights": {
+      "type": "object",
+      "properties": {
+        "topical": {
+          "type": "number"
+        },
+        "skills": {
+          "type": "number"
+        },
+        "practical": {
+          "type": "number"
+        }
+      }
+    },
+    "meta/profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "meta/profile-text": {
+      "type": "object",
+      "description": "Text the page extracted from the user's CV and LinkedIn PDF export. Read by the scan when it drafts the profile; never leaves the radar.",
+      "properties": {
+        "files": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "cv",
+                  "linkedin",
+                  "other"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "maxLength": 20000
+              },
+              "addedAt": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "meta/control": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "done"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "incremental",
+            "rescore",
+            "full"
+          ]
+        },
+        "deriveProfile": {
+          "type": "boolean"
+        },
+        "requestedAt": {
+          "type": "string"
+        },
+        "startedAt": {
+          "type": "string"
+        },
+        "lastResult": {
+          "type": "string"
+        },
+        "lastError": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "meta/run": {
+      "type": "object",
+      "properties": {
+        "lastRunAt": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "partial",
+            "failed"
+          ]
+        },
+        "counts": {
+          "type": "object"
+        },
+        "unreadSources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "summary": {
+          "type": "string"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "history": {
+          "type": "array"
+        }
+      }
+    },
+    "calls/<id>": {
+      "$ref": "#/$defs/call"
+    },
+    "data/users/<id>/marks": {
+      "type": "object",
+      "properties": {
+        "calls": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "interested": {
+                "type": "boolean"
+              },
+              "applying": {
+                "type": "boolean"
+              },
+              "discarded": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Reason: unreachable, not-interesting, not-eligible, other."
+              },
+              "note": {
+                "type": "string"
+              },
+              "at": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "export": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "fund-radar/v1"
+        }
+      }
+    }
+  }
+}

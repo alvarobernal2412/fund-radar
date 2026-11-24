@@ -1,0 +1,158 @@
+{
+ "name": "Alex Example",
+ "headline": "PhD researcher in process mining and visual analytics",
+ "careerStage": "phd",
+ "phdDate": "2027-06",
+ "phdExpected": true,
+ "employer": "Example University",
+ "residence": "CH",
+ "researchAreas": [
+  {
+   "name": "Analytic provenance",
+   "weight": 1,
+   "keywords": [
+    "provenance",
+    "analytic provenance",
+    "reasoning"
+   ],
+   "from": {
+    "source": "portfolio",
+    "asOf": "2026-11-01"
+   }
+  },
+  {
+   "name": "Process mining",
+   "weight": 1,
+   "keywords": [
+    "process mining",
+    "event logs"
+   ],
+   "from": {
+    "source": "orcid",
+    "asOf": "2026-10-20"
+   }
+  },
+  {
+   "name": "Visual analytics",
+   "weight": 0.8,
+   "keywords": [
+    "visual analytics",
+    "visualization"
+   ],
+   "from": {
+    "source": "cv",
+    "asOf": "2026-06-01"
+   }
+  }
+ ],
+ "methods": [
+  "User studies",
+  "Conceptual modelling"
+ ],
+ "skills": {
+  "hard": [
+   "Python",
+   "TypeScript"
+  ],
+  "soft": [
+   "Teaching",
+   "Workshop facilitation"
+  ]
+ },
+ "languages": [
+  {
+   "language": "English",
+   "level": "C2"
+  },
+  {
+   "language": "Spanish",
+   "level": "native"
+  },
+  {
+   "language": "German",
+   "level": "B1"
+  }
+ ],
+ "teaching": [
+  {
+   "course": "Advanced Software Systems Engineering",
+   "role": "Teaching assistant",
+   "years": "2025-2026",
+   "from": {
+    "source": "portfolio",
+    "asOf": "2026-11-01"
+   }
+  }
+ ],
+ "funding": [],
+ "publications": [
+  {
+   "id": "10-1234-example-1",
+   "title": "A provenance model for exploratory process mining",
+   "venue": "Example Conference",
+   "year": 2026,
+   "type": "conference",
+   "position": "first",
+   "doi": "10.1234/example.1",
+   "from": {
+    "source": "orcid",
+    "asOf": "2026-10-20"
+   }
+  },
+  {
+   "id": "an-early-workshop-paper-2024",
+   "title": "An early workshop paper",
+   "venue": "Example Workshop",
+   "year": 2024,
+   "type": "workshop",
+   "position": "middle",
+   "doi": null,
+   "from": {
+    "source": "orcid",
+    "asOf": "2026-10-20"
+   }
+  }
+ ],
+ "answers": {
+  "ambitions": "Lead a project on provenance-backed AI-assisted process mining.",
+  "relocation": "maybe",
+  "preferredCountries": [
+   "CH",
+   "DE",
+   "NL"
+  ],
+  "teachingLanguages": [
+   "English",
+   "Spanish"
+  ],
+  "grantSize": "",
+  "duration": "",
+  "avoid": "Purely theoretical calls"
+ },
+ "inputs": {
+  "portfolio": "https://example.org/alex",
+  "orcid": "0000-0000-0000-0000",
+  "scholar": null,
+  "linkedin": null,
+  "files": []
+ },
+ "revision": 3,
+ "confirmedAt": "2026-11-20T10:00:00Z",
+ "updatedBy": "page",
+ "pending": {
+  "proposedAt": "2026-11-24T08:00:00Z",
+  "from": "portfolio",
+  "changes": [
+   {
+    "path": "teaching",
+    "label": "New teaching role listed on your website",
+    "old": null,
+    "new": {
+     "course": "Process Mining (guest lecture)",
+     "role": "Lecturer",
+     "years": "2026"
+    }
+   }
+  ]
+ }
+}

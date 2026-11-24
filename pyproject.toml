@@ -1,0 +1,13 @@
+[project]
+name = "fund-radar"
+version = "0.1.0"
+description = "A weekly radar of research funding calls, ranked by eligibility and affinity to your profile, published as a single Claude artifact."
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.pytest.ini_options]
+pythonpath = ["pipeline"]
+testpaths = ["tests"]

@@ -1,0 +1,28 @@
+{
+  "_comment": "European pack: programmes open to researchers in EU member states and associated countries. Each source says how the scan reads it. 'url' is where the scan starts; the scan follows links from there.",
+  "id": "eu",
+  "label": "European Union",
+  "kind": "region",
+  "sources": [
+    {
+      "id": "eu-ftop",
+      "label": "EU Funding & Tenders portal",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals",
+      "covers": ["Horizon Europe", "ERC", "MSCA", "Digital Europe", "Erasmus+"],
+      "access": "browser",
+      "how": "Search calls for proposals with status Open and Forthcoming. Calls are split into topics: one topic is one call record. Restrict to the user's opportunity types (for example ERC and MSCA for fellowships) and keywords from the profile's research areas.",
+      "types": ["project", "fellowship", "mobility", "networking", "prize"],
+      "default": true
+    },
+    {
+      "id": "euraxess-funding",
+      "label": "EURAXESS funding database",
+      "url": "https://euraxess.ec.europa.eu/jobs",
+      "covers": ["National and European fellowships", "Mobility grants"],
+      "access": "browser",
+      "how": "Open the funding search from this page (the national EURAXESS portals have the same search under /funding/search). Filter by the user's countries, career stage and research field. Many entries point to national schemes: follow the link to the funder's own page and keep that page as the main link.",
+      "types": ["fellowship", "mobility", "project"],
+      "default": true
+    }
+  ]
+}
