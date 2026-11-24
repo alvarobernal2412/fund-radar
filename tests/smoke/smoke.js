@@ -40,8 +40,10 @@ function mockRuntime(seed) {
     onSnapshot: (cb) => { listeners.push({ kind: "doc", path: p, cb }); notify(); return () => {}; },
   });
   const col = (c) => {
-    const q = { limit: () => q, where: () => q, orderBy: () => q,
-      onSnapshot: (cb) => { listeners.push({ kind: "col", path: c, cb }); notify(); return () => {}; },
+    let max = 0;
+    const q = { limit: (n) => { max = n; return q; }, where: () => q, orderBy: () => q,
+      // Like the real store: a query may ask for at most 1000 documents.
+      onSnapshot: (cb, err) => { if (max > 1000) { setTimeout(() => err && err({ code: "invalid_argument" }), 0); return () => {}; } listeners.push({ kind: "col", path: c, cb }); notify(); return () => {}; },
       get: async () => { const docs = colDocs(c); return { docs, size: docs.length, empty: !docs.length }; },
       doc: (id) => doc(c + "/" + id) };
     return q;

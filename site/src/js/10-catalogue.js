@@ -101,6 +101,7 @@ function updateCatalog(){
   const notElig=S.calls.filter(c=>c.verdict==="not_eligible"&&!isClosed(c)).length;
   const rc=document.getElementById("rescount");
   if(rc)rc.textContent=`${plural(rows.length,"call")} shown of ${S.calls.length} stored${discarded?` · ${discarded} discarded`:""}${notElig&&!F.verdict.includes("not_eligible")&&F.verdict.length?` · ${notElig} not eligible hidden by the Eligibility filter`:""}`;
+  if(S.callsError){list.innerHTML=emptyBlock("Couldn't load the calls","The radar's store refused the request ("+S.callsError+"). Reload the page; if it persists, report it.");return}
   if(!S.calls.length){list.innerHTML=emptyBlock("No calls yet","The radar is empty until the first scan has run. Check your scope and profile, then start a scan from Scope & scans.",`<a href="#settings">Go to Scope &amp; scans</a>`);return}
   if(!rows.length){list.innerHTML=emptyBlock("No calls match these filters","Clear the filters or tick Show discarded or Show closed.");return}
   list.innerHTML=`<div class="clist">${rows.map(callRow).join("")}</div>`;
