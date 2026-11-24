@@ -15,7 +15,90 @@ The repository is only a template. When you install it, your radar's calls, prof
 
 ## Install
 
-Clone and configure everything with one prompt. Paste the prompt from [docs/setup-prompt.md](docs/setup-prompt.md) into Claude Code (the desktop app, with Claude in Chrome). The agent asks a few multiple-choice questions (folder, countries, kinds of funding, career stage, home institution, scan day), then clones the repository, builds the page, publishes the artifact, creates the weekly scan and tells you what is left: building your profile on the Profile page and pressing *Run now*.
+Clone and configure everything with one prompt. Paste this into Claude Code (the desktop app, with Claude in Chrome, because the funders' sites are read through your browser). The agent first asks a few multiple-choice questions (folder, countries, kinds of funding, career stage, home institution, scan day), so there is nothing to fill in. It then clones the repository, builds the page, publishes the artifact, creates the weekly scan and tells you what is left: building your profile on the Profile page and pressing *Run now*.
+
+```text
+I want to set up Fund Radar, a weekly radar of research funding calls. Clone the
+repo and configure everything, then tell me what is left for me to do by hand.
+
+Repo: https://github.com/alvarobernal2412/fund-radar
+
+Before you do anything else, clone the repo into a temporary folder and read
+README.md, docs/new-pack.md and the packs under packs/, so you can offer the
+countries and universities that have a source pack. Then ask me for the values
+below. Use the AskUserQuestion tool (multiple-choice with an "Other" free-text
+option) in two calls, because it takes at most 4 questions each. If that tool
+is not available, ask the same questions in plain text in one message. Mark the
+suggested option "(Recommended)" and wait for my answers.
+
+Call 1:
+1. Clone folder: ~/code/fund-radar (Recommended) / the current directory / Other.
+2. Countries to scan (multiple choice): one option per country pack in
+   packs/countries/ (skip files starting with _), plus "EU and international
+   programmes" (Recommended, ticked by default). Under Other I can type ISO
+   codes of countries without a pack.
+3. Opportunity types (multiple choice): Project funding (project) /
+   Fellowships and mobility (fellowship, mobility) / Networking and event
+   funds (networking) / Prizes (prize). Nothing ticked means all.
+4. Career stage: PhD student (phd) / Postdoc (postdoc) / Senior researcher or
+   lecturer (senior) / Professor (professor). Anything under Other is "other".
+
+Call 2:
+5. My home institution, whose internal funds should be scanned: offer up to
+   three universities from the pack of the first country I picked, and let me
+   type another under Other. "None" is a valid answer.
+6. Scan day: call assign_slot() from pipeline/fund/schedule.py with the
+   weekday and time of every Research Radar scan you find on this computer
+   (research-radar clones list them in config/site.json under radars; a
+   config without radars is one radar, whose slot is in its scheduleText), so
+   the two never scan on the same day. Offer the slot it returns, moved to a
+   minute that is not on the hour (e.g. 09:00 becomes 09:49), as the
+   Recommended option / another free weekday / Other. Ask my time zone if you
+   cannot read it from this machine.
+7. Radar name: "Fund Radar" (Recommended) / Other.
+
+Steps:
+1. Move or clone the repo into the folder I gave you. Check python 3.11+ is
+   installed (node is optional). Install nothing system-wide without asking me.
+   Run: python -m pytest
+2. Copy config/site.example.json to config/site.json and fill in title,
+   siteName, scheduleText, weekday, time and timezone from my answers.
+   config/site.json is git-ignored: never commit it.
+3. Build: python site/build.py --check
+4. Publish dist/fund-radar.html as a NEW artifact with the capabilities in
+   site/capabilities.json. Put the returned URL into config/site.json as
+   artifactUrl, and git rev-parse HEAD as lastPublishedCommit. If
+   config/site.json already has a real artifactUrl (this is a re-run), read
+   that artifact first and update it in place instead of creating a second one.
+5. Run python pipeline/render_prompt.py and create a scheduled task named
+   "<radar name> weekly scan" at my slot (cron_expression() in
+   pipeline/fund/schedule.py gives the cron line), using that output as its
+   prompt. It must run on my computer (Chrome reads the funders' sites). Put
+   the task id into config/site.json as triggerId.
+6. Write to the artifact's database:
+   - meta/config: {siteName, scheduleText, timezone, triggerId,
+     countries (upper-case ISO codes), includeEU, opportunityTypes (project,
+     fellowship, mobility, networking, prize; empty for all), careerStage
+     (phd, postdoc, senior, professor), institutions ([{id, country, role:
+     "home"}] for my home institution, using the pack's institution id),
+     communities: [], prepWeeks: {}}
+   - meta/weights: {topical: 0.5, skills: 0.3, practical: 0.2}
+   - meta/profile: {revision: 0, confirmedAt: null, inputs: {}}
+   Nothing from my scope or profile goes into the repository.
+7. Finish with a short checklist of what I still have to do myself. It must
+   include: open the radar's Profile page, add my website, ORCID, CV and
+   LinkedIn PDF export, answer the questionnaire, draft and confirm the
+   profile; check the scope and pick target institutions on Scope & scans;
+   then press "Run now" for the first scan (the radar is empty until a scan
+   has run). Note that the artifact is private until I share it from its
+   Share menu, and that sharing it also shares my profile.
+
+Rules:
+- Never commit config/site.json, data exports, or anything from my profile.
+- Do not ask me to paste my CV or LinkedIn export into the chat: they go on the
+  radar's Profile page.
+- Do not run git commit yourself: show me the proposed message and wait.
+```
 
 Prefer to do it yourself?
 
@@ -25,11 +108,61 @@ cp config/site.example.json config/site.json   # then edit it
 python -m pytest && python site/build.py --check
 ```
 
-then follow the steps of the setup prompt by hand.
+then follow the steps of the prompt by hand. What the prompt cannot do for you (your profile, the first scan, task approval) is listed in [docs/setup-prompt.md](docs/setup-prompt.md).
 
 ## Update
 
-When the repository has new commits, paste the prompt from [docs/update-prompt.md](docs/update-prompt.md) into Claude Code from your clone. It pulls, tests, rebuilds, republishes the page in place (your data is kept) and updates the scheduled task only if the scan instructions or the source packs changed.
+When the repository has new commits, bring your radar up to date with one prompt. Paste this into Claude Code from your clone. It pulls, tests, rebuilds, republishes the page in place (your data is kept) and updates the scheduled task only if the scan instructions or the source packs changed:
+
+```text
+Update my Fund Radar to the latest code in the repo. Do not change my data.
+
+Before you do anything else, ask me with the AskUserQuestion tool (or in plain
+text if it is not available):
+1. Which folder holds my clone: the current directory (Recommended) / Other.
+2. If the scan instructions or the packs changed, should you update my
+   scheduled task automatically (Recommended), show me the diff first, or
+   leave the task alone?
+
+Steps:
+1. Go to the clone. Run git status. If there are uncommitted changes, stop and
+   show them to me. Check that config/site.json exists and has an artifactUrl;
+   if not, this clone was never installed: point me to the install prompt in
+   README.md and stop.
+2. git fetch, then git pull --ff-only. Never merge, rebase or force anything
+   without asking me. Let OLD be config/site.json's lastPublishedCommit (or, if
+   it is missing, the commit I was on before pulling) and NEW be HEAD. If OLD
+   and NEW are the same, tell me everything is up to date and stop.
+3. Summarise git log --oneline OLD..NEW and git diff --stat OLD..NEW in plain
+   language, grouped as: page (site/), scan instructions
+   (pipeline/scan-prompt.md, pipeline/render_prompt.py), source packs
+   (packs/), data model (pipeline/schema/), capabilities
+   (site/capabilities.json), docs and tests.
+4. Run python -m pytest and python site/build.py --check. Stop and show me the
+   output if either fails.
+5. Publish the page in place: read the live artifact at artifactUrl first, then
+   publish dist/fund-radar.html to that same URL. Pass capabilities only if
+   site/capabilities.json changed between OLD and NEW.
+6. If pipeline/scan-prompt.md, pipeline/render_prompt.py or anything under
+   packs/ changed: run python pipeline/render_prompt.py, compare it with my
+   scheduled task's current prompt, and update the task according to my answer
+   to question 2. Keep its schedule and task id.
+7. If pipeline/schema/ changed, tell me what changed and whether stored
+   documents need a migration. Do not write to the database unless a commit
+   message or the docs say a migration is required, and then ask me first.
+8. Verify: run the smoke test (npm install && npm run smoke) if node and a
+   browser are available, otherwise open the artifact and check that it loads
+   without errors. Report anything that failed.
+9. Write NEW into config/site.json as lastPublishedCommit and report what was
+   updated and what I still have to do myself.
+
+Rules:
+- Never commit, force-push or delete data. Never commit config/site.json or any
+  export.
+- If a step fails, stop and tell me; do not work around it silently.
+```
+
+More detail: [docs/update-prompt.md](docs/update-prompt.md).
 
 ## Countries and sources
 
