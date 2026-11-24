@@ -15,12 +15,12 @@ text if it is not available):
 Steps:
 1. Go to the clone. Run git status. If there are uncommitted changes, stop and
    show them to me. Check that config/site.json exists and has an artifactUrl;
-   if not, this clone was never installed: point me to docs/setup-prompt.md
-   and stop.
+   if not, this clone was never installed: point me to the install prompt in
+   README.md and stop.
 2. git fetch, then git pull --ff-only. Never merge, rebase or force anything
-   without asking me. Let OLD be config/site.json's lastPublishedCommit (or the
-   commit I was on before pulling) and NEW be HEAD. If they are the same, tell
-   me everything is up to date and stop.
+   without asking me. Let OLD be config/site.json's lastPublishedCommit (or, if
+   it is missing, the commit I was on before pulling) and NEW be HEAD. If OLD
+   and NEW are the same, tell me everything is up to date and stop.
 3. Summarise git log --oneline OLD..NEW and git diff --stat OLD..NEW in plain
    language, grouped as: page (site/), scan instructions
    (pipeline/scan-prompt.md, pipeline/render_prompt.py), source packs
@@ -38,8 +38,9 @@ Steps:
 7. If pipeline/schema/ changed, tell me what changed and whether stored
    documents need a migration. Do not write to the database unless a commit
    message or the docs say a migration is required, and then ask me first.
-8. Open the artifact and check that it loads without errors. Report anything
-   that failed.
+8. Verify: run the smoke test (npm install && npm run smoke) if node and a
+   browser are available, otherwise open the artifact and check that it loads
+   without errors. Report anything that failed.
 9. Write NEW into config/site.json as lastPublishedCommit and report what was
    updated and what I still have to do myself.
 

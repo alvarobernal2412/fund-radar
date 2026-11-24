@@ -22,10 +22,11 @@ Call 1:
    packs/countries/ (skip files starting with _), plus "EU and international
    programmes" (Recommended, ticked by default). Under Other I can type ISO
    codes of countries without a pack.
-3. Opportunity types (multiple choice): Project funding / Fellowships and
-   mobility / Networking and event funds / Prizes. Nothing ticked means all.
-4. Career stage: PhD student / Postdoc / Senior researcher or lecturer /
-   Professor.
+3. Opportunity types (multiple choice): Project funding (project) /
+   Fellowships and mobility (fellowship, mobility) / Networking and event
+   funds (networking) / Prizes (prize). Nothing ticked means all.
+4. Career stage: PhD student (phd) / Postdoc (postdoc) / Senior researcher or
+   lecturer (senior) / Professor (professor). Anything under Other is "other".
 
 Call 2:
 5. My home institution, whose internal funds should be scanned: offer up to
@@ -33,10 +34,12 @@ Call 2:
    type another under Other. "None" is a valid answer.
 6. Scan day: call assign_slot() from pipeline/fund/schedule.py with the
    weekday and time of every Research Radar scan you find on this computer
-   (research-radar clones list them in config/site.json under radars), so the
-   two never scan on the same day. Offer the slot it returns at a minute that
-   is not on the hour, e.g. "Wednesdays 08:49 (Recommended)" / another
-   weekday / Other. Ask my time zone if you cannot read it from this machine.
+   (research-radar clones list them in config/site.json under radars; a
+   config without radars is one radar, whose slot is in its scheduleText), so
+   the two never scan on the same day. Offer the slot it returns, moved to a
+   minute that is not on the hour (e.g. 09:00 becomes 09:49), as the
+   Recommended option / another free weekday / Other. Ask my time zone if you
+   cannot read it from this machine.
 7. Radar name: "Fund Radar" (Recommended) / Other.
 
 Steps:
@@ -53,9 +56,10 @@ Steps:
    config/site.json already has a real artifactUrl (this is a re-run), read
    that artifact first and update it in place instead of creating a second one.
 5. Run python pipeline/render_prompt.py and create a scheduled task named
-   "<radar name> weekly scan" at my slot, using that output as its prompt. It
-   must run on my computer (Chrome reads the funders' sites). Put the task id
-   into config/site.json as triggerId.
+   "<radar name> weekly scan" at my slot (cron_expression() in
+   pipeline/fund/schedule.py gives the cron line), using that output as its
+   prompt. It must run on my computer (Chrome reads the funders' sites). Put
+   the task id into config/site.json as triggerId.
 6. Write to the artifact's database:
    - meta/config: {siteName, scheduleText, timezone, triggerId,
      countries (upper-case ISO codes), includeEU, opportunityTypes (project,
