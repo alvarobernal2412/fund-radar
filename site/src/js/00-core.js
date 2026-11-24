@@ -50,6 +50,15 @@ function affinityOf(c,w){
   for(const k of Object.keys(DEFAULT_WEIGHTS)){const v=num(s[k]);if(v==null)return null;a+=w[k]*clamp(v,0,100)}
   return Math.round(clamp(a+clamp(num(s.adjust)||0,-10,10),0,100));
 }
+// Accept the shapes a scan may write: eligibility as {items, verdict}, why/gaps inside scores.
+function normalizeCall(c){
+  const e=c.eligibility;
+  if(e&&!Array.isArray(e)&&typeof e==="object"){c.eligibility=arr(e.items||e.conditions);if(!c.verdict&&e.verdict)c.verdict=e.verdict}
+  const s=c.scores;
+  if(s&&typeof s==="object"){if(!c.why&&typeof s.why==="string")c.why=s.why;if(!arr(c.gaps).length&&Array.isArray(s.gaps))c.gaps=s.gaps}
+  if(!c.verdict)c.verdict=verdictOf(c.eligibility);
+  return c;
+}
 function verdictOf(conds){const m=arr(conds).map(c=>c.mark||"unclear");if(!m.length)return"check";if(m.includes("not_met"))return"not_eligible";return m.every(x=>x==="met")?"eligible":"check"}
 function nextDeadline(c){
   let best=null;const t=today();

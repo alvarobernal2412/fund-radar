@@ -90,6 +90,10 @@ function shiftDates(calls) {
       history: [{ date: today, status: "partial", newCalls: 4, sourcesRead: 6, sourcesUnread: 1, note: "Innosuisse timed out" }] },
   };
   for (const c of calls) { const { id, ...rest } = c; seed["calls/" + id] = rest; }
+  // One call in the shape an early scan wrote (eligibility as {items, verdict}; why and gaps inside scores).
+  seed["calls/nested-shape"] = { title: "Nested shape call", funder: "Example Funder", type: "networking", deadlines: [{ date: "2099-01-01" }],
+    eligibility: { items: [{ text: "Doctoral student", mark: "met" }], verdict: "eligible" }, scores: { topical: 10, skills: 10, practical: 10, why: "Nested why", gaps: ["Nested gap"] },
+    provenance: { foundIn: ["Example"], firstSeen: today } };
 
   const browser = await chromium.launch(process.env.CHROMIUM ? { executablePath: process.env.CHROMIUM } : fs.existsSync("/usr/bin/google-chrome") ? { executablePath: "/usr/bin/google-chrome" } : {});
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
@@ -109,7 +113,8 @@ function shiftDates(calls) {
   await pg.goto("file://" + page + "#calls");
   await pg.waitForTimeout(600);
   await shot("catalogue");
-  const visible = calls.filter((c) => c.verdict !== "not_eligible" && c.status !== "closed").length;
+  const visible = calls.filter((c) => c.verdict !== "not_eligible" && c.status !== "closed").length + 1; // + the nested-shape call
+  check("a call stored in the nested shape is read correctly", (await pg.$$('.crow[data-id="nested-shape"] .vd.eligible')).length === 1 && (await pg.textContent('.crow[data-id="nested-shape"]')).includes("Nested why"));
   check("catalogue shows open calls you may apply to by default", (await rows()) === visible, `${await rows()}/${visible}`);
   check("brand uses the radar name", (await pg.textContent("#brand")) === "Test Fund Radar");
   const aff = (c, w) => Math.round(Math.max(0, Math.min(100, w.t * c.scores.topical + w.s * c.scores.skills + w.p * c.scores.practical + (c.scores.adjust || 0))));
@@ -141,7 +146,7 @@ function shiftDates(calls) {
   check("quick filter shows marked calls only", (await rows()) === 1);
   await pg.click('[data-quick="eligible"]');
   await pg.waitForTimeout(200);
-  check("quick filter shows eligible calls only", (await rows()) === calls.filter((c) => c.verdict === "eligible" && c.status !== "closed").length);
+  check("quick filter shows eligible calls only", (await rows()) === calls.filter((c) => c.verdict === "eligible" && c.status !== "closed").length + 1);
   await pg.click("#flt-reset");
   await pg.waitForTimeout(200);
   await pg.click("#flt-verdict summary");

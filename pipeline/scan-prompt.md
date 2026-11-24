@@ -61,6 +61,7 @@ Access: every source has `"access": "browser"`. Read it in Chrome on this comput
 - `unclear`: the profile lacks the fact or the condition is ambiguous; `question` says what the user must find out ("Does your PhD date count from the defence or the diploma?").
 - For "PhD obtained between X and Y years ago" windows, count from `phdDate`, subtract `careerBreaksMonths`, and use the call's deadline as the reference date (`phd_window()` in `pipeline/fund/eligibility.py`).
 - For host conditions, a target institution of the user that is eligible as host counts as evidence; say which one.
+- Store the items as the call's top-level `eligibility` array, and `verdict`, `why` and `gaps` as top-level fields of the call (not inside `eligibility` or `scores`); `scores` holds only `topical`, `skills`, `practical` and `adjust`.
 - `verdict`: "not_eligible" if any item is not_met; else "check" if any is unclear or no condition could be extracted; else "eligible".
 
 **Scores** (each 0-100; the page combines them with the user's weights):
