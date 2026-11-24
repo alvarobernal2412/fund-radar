@@ -19,6 +19,7 @@ function summaryStrip(){
     <a class="stat" href="#calls" data-quick="soon"><b>${soon}</b><span>deadlines in the next 4 weeks</span></a>
     <a class="stat" href="#calls" data-quick="eligible"><b>${elig}</b><span>open calls you are eligible for</span></a>
     <a class="stat" href="#calls" data-quick="marked"><b>${marked}</b><span>marked interested or applying</span></a>
+    <a class="stat" href="#timeline"><b>${live.filter(c=>markOf(c.id).timeline).length}</b><span>on your timeline</span></a>
     <a class="stat${unread?" warn":""}" href="#settings"><b>${unread}</b><span>${unread===1?"source":"sources"} not read in the last scan</span></a>
   </div>`;
 }
@@ -88,6 +89,7 @@ function callRow({c,a}){
     <div class="cact">
       <button type="button" class="icobtn" data-mark="interested" data-id="${esc(c.id)}" aria-pressed="${!!m.interested}">${m.interested?"Interested ✓":"Interested"}</button>
       <button type="button" class="icobtn" data-mark="applying" data-id="${esc(c.id)}" aria-pressed="${!!m.applying}">${m.applying?"Applying ✓":"Applying"}</button>
+      ${closed||m.discarded?"":`<button type="button" class="icobtn" data-tl-toggle="${esc(c.id)}" aria-pressed="${!!m.timeline}">${m.timeline?"On timeline ✓":"Add to timeline"}</button>`}
       ${disc}
     </div>
   </article>`;

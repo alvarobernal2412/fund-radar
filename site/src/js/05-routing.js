@@ -1,5 +1,5 @@
 /* ---------- routing ---------- */
-// Views: #calls (default), #call.<id>, #profile, #settings.
+// Views: #calls (default), #call.<id>, #timeline, #profile, #settings.
 function route(){
   const h=(location.hash||"").replace(/^#/,"");if(!h)return{view:"calls"};
   const i=h.indexOf(".");if(i>0)return{view:h.slice(0,i),id:decodeURIComponent(h.slice(i+1))};return{view:h};
@@ -13,6 +13,7 @@ function render(force){
   const changed=key!==lastKey;lastKey=key;
   if(r.view==="calls"){if(changed||force||!document.getElementById("flt-q"))renderCatalogShell();updateCatalog()}
   else if(r.view==="call")renderCallDetail(r.id);
+  else if(r.view==="timeline")renderTimeline();
   else if(r.view==="profile"){if(changed||force||!(PF.editing||PF.dirty))renderProfile()}
   else if(r.view==="settings"){if(changed||force||!ST.busy)renderSettings()}
   else{location.hash="#calls";return}

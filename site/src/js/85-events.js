@@ -8,6 +8,8 @@ app.addEventListener("input",e=>{
 app.addEventListener("change",e=>{
   const v=route().view;const t=e.target;
   if(v==="calls"&&t.closest("#cat-tools")){readFilters();return}
+  const tf=t.closest("[data-tlf]");if(tf){tlSetFilter(tf.dataset.tlf,tf.value,tf.checked);return}
+  if(t.closest("[data-tllabels]")){tlSetLabels(t.checked);return}
   if(t.id==="pf-file"){const fs=[...t.files];t.value="";addFiles(fs);return}
   if(t.id==="pf-showhidden"){PF.showHidden=t.checked;const s=document.getElementById("pf-pubs");if(s)s.innerHTML=publicationsSection();return}
   if(t.dataset.src&&!t.disabled){toggleSource(t.dataset.src,t.checked);return}
@@ -19,6 +21,8 @@ app.addEventListener("change",e=>{
 app.addEventListener("click",e=>{
   const q=e.target.closest("[data-quick]");if(q){e.preventDefault();quickFilter(q.dataset.quick);return}
   if(e.target.closest("#flt-reset")){Object.assign(F,F_DEFAULT,{type:[],country:[],status:[],verdict:F_DEFAULT.verdict.slice()});saveFilters();renderCatalogShell();updateCatalog();return}
+  const tz=e.target.closest("[data-tlz]");if(tz&&!tz.disabled){tlZoomBy(tz.dataset.tlz);return}
+  const tt=e.target.closest("[data-tl-toggle]");if(tt){e.preventDefault();toggleMark(tt.dataset.tlToggle,"timeline");return}
   const m=e.target.closest("[data-mark]");if(m){e.preventDefault();toggleMark(m.dataset.id,m.dataset.mark);return}
   const d=e.target.closest("[data-discard]");if(d){e.preventDefault();const det=d.closest("details");if(det)det.open=false;discardCall(d.dataset.discard,d.dataset.reason);return}
   const r=e.target.closest("[data-restore]");if(r){e.preventDefault();restoreCall(r.dataset.restore);return}

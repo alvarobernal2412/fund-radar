@@ -926,6 +926,10 @@
               "applying": {
                 "type": "boolean"
               },
+              "timeline": {
+                "type": "boolean",
+                "description": "Added to the Timeline page with Add to timeline."
+              },
               "discarded": {
                 "type": [
                   "string",

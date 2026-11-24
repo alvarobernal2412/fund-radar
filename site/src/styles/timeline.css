@@ -1,0 +1,37 @@
+/* Deadline timeline, copied from Research Radar (conferences page) and used for the calls you add to it. */
+:root{--tl-s:62%;--tl-l:40%}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--tl-l:68%}}
+:root[data-theme="dark"]{--tl-l:68%}
+.tl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);margin-top:12px}
+.tl{position:relative;min-width:1000px;margin:0 20px}
+.tl-axis{position:absolute;left:0;right:0;height:3px;margin-top:-1px;background:var(--line);border-radius:2px}
+.tl-now{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--crit);pointer-events:none}
+.tl-nowlab{position:absolute;top:2px;transform:translateX(-50%);padding:0 6px;background:var(--crit);color:var(--surface);border-radius:3px;font-size:.68rem;font-weight:700;z-index:1}
+.tl-tick{position:absolute;transform:translateX(-50%);font-size:.7rem;color:var(--muted)}
+.tl-stem{position:absolute;width:1px;margin-left:-.5px;background:var(--c)}
+.tl-node{position:absolute;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;border:2px solid var(--c);background:var(--c);z-index:1}
+.tl-node.notif{background:var(--surface)}
+.tl-node:hover{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent);text-decoration:none}
+.tl-lab{position:absolute;padding:1px 6px;font-size:.72rem;line-height:1.5;white-space:nowrap;color:var(--c);background:var(--surface);border-radius:3px;z-index:1}
+.tl-lab:hover{text-decoration:underline}
+.tl-node.past,.tl-lab.past,.tl-stem.past{opacity:.45}
+.tl-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:.8rem}
+.tl-legend a{display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+.tl-legend i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.tl-ctl{display:flex;gap:8px;align-items:center}
+.tl-ctl .btn{padding:5px 11px;font-size:.82rem}
+.tl-ctl .seg button{min-width:2.2em}
+.tl-ctl .tl-zl{min-width:3.4em;color:var(--ink)}
+.tl-ctl button:disabled:not(.tl-zl){opacity:.45;cursor:not-allowed}
+.tl-bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.tl-f{min-width:190px}
+.tl-chk{display:inline-flex;gap:6px;align-items:center;font-size:.86rem;cursor:pointer}
+.tl-chk input{accent-color:var(--accent)}
+.tl.nolab .tl-lab,.tl.nolab .tl-stem{display:none}
+.tl.nolab .tl-node:hover+.tl-lab,.tl.nolab .tl-node:focus-visible+.tl-lab{display:block;z-index:5;border:1px solid var(--c);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.tl.nolab .tl-stem:has(+ .tl-node:hover),.tl.nolab .tl-stem:has(+ .tl-node:focus-visible){display:block}
+
+/* Fund Radar: legend entries carry a remove button */
+.tl-item{display:inline-flex;align-items:center;gap:4px}
+.tl-rm{font:inherit;font-size:.9rem;line-height:1;width:22px;height:22px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);cursor:pointer}
+.tl-rm:hover{border-color:var(--crit);color:var(--crit)}

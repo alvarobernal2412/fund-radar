@@ -21,7 +21,7 @@ Fund Radar follows Research Radar's design: the repository is a template, and ea
 - `meta/profile-text`: text extracted on the page from the CV and LinkedIn PDF export (at most 6 files, 20,000 characters each).
 - `meta/control`: requests from the page to the scan: `status` (queued, running, done), `mode` (incremental, rescore, full), `deriveProfile`.
 - `meta/run`: the last run's status, counts, unread sources, issues and history.
-- `data/users/<id>/marks`: the viewer's interested, applying and discarded calls.
+- `data/users/<id>/marks`: the viewer's interested, applying, on-timeline and discarded calls. The Timeline page shows only calls marked `timeline`; discarding a call takes it off the timeline.
 
 ## Eligibility and affinity
 
